@@ -1,4 +1,4 @@
-"""Command line entry point: `photo-cleanup [FOLDER]` starts the web app."""
+"""Command line entry point: `pixora [FOLDER]` (or `photo-cleanup`) starts the web app."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from .api import STATIC_DIR, create_app
 
 
 def main(argv: list[str] | None = None) -> None:
-    ap = argparse.ArgumentParser(description="Review and clean up similar photos in your browser.")
+    ap = argparse.ArgumentParser(description="Pixora: your photos, beautifully sorted.")
     ap.add_argument("folder", nargs="?", help="photo folder to open on start (optional)")
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8000)
@@ -23,7 +23,7 @@ def main(argv: list[str] | None = None) -> None:
     url = f"http://{args.host}:{args.port}/"
     if not (STATIC_DIR / "index.html").exists():
         print("Note: UI not built yet. Run `make build` (or use `make dev` for development).")
-    print(f"Photo Cleanup running at {url}  (Ctrl+C to stop)")
+    print(f"Pixora running at {url}  (Ctrl+C to stop)")
     if not args.no_browser:
         threading.Timer(1.0, lambda: webbrowser.open(url)).start()
     uvicorn.run(app, host=args.host, port=args.port, log_level="warning")

@@ -1,3 +1,3 @@
-"""Photo Cleanup: group similar photos, suggest the best, review changes before applying."""
+"""Pixora: sort photos into categories and similar sets, pick the best, review before applying."""
 
-__version__ = "0.1.0"
+__version__ = "1.0.0b1"  # keep in sync with pyproject.toml and frontend/package.json

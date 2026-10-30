@@ -23,6 +23,14 @@ if HEIC_SUPPORTED:
 HASH_SIZE = 16  # 16x16 = 256-bit difference hash
 
 
+# Counted for the folder statistics only; videos are not analysed or changed.
+VIDEO_EXTS = {".mp4", ".mov", ".m4v", ".avi", ".mkv", ".webm", ".mts", ".m2ts", ".3gp", ".wmv"}
+
+
+def is_video_file(name: str) -> bool:
+    return not name.startswith(".") and os.path.splitext(name)[1].lower() in VIDEO_EXTS
+
+
 def is_image_file(name: str) -> bool:
     return not name.startswith(".") and os.path.splitext(name)[1].lower() in IMAGE_EXTS
 

@@ -25,6 +25,14 @@ def save_jpeg(im: Image.Image, path, orientation: int | None = None) -> None:
     im.save(path, "JPEG", quality=92, exif=exif.tobytes())
 
 
+@pytest.fixture(autouse=True)
+def pixora_home(tmp_path_factory, monkeypatch):
+    """Settings, edits and cached analysis go to a temp dir, never the real ~/.pixora."""
+    home = tmp_path_factory.mktemp("pixora-home")
+    monkeypatch.setenv("PIXORA_HOME", str(home))
+    return home
+
+
 @pytest.fixture
 def photo_dir(tmp_path):
     """3 near-duplicates of scene A (one stored rotated), a blurry copy, an unrelated photo."""

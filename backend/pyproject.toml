@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "photo-cleanup"
-version = "0.1.0"
-description = "Find similar photos, pick the best, and clean up storage with a review web UI."
+version = "1.0.0b1"
+description = "Pixora: sort photos into categories and similar sets, pick the best, clean up storage."
 requires-python = ">=3.10"
 dependencies = [
     "fastapi>=0.115",
@@ -15,13 +15,24 @@ dependencies = [
 
 [project.optional-dependencies]
 heic = ["pillow-heif>=0.18"]
+# AI mode: local DINOv2 grouping + CLIP-IQA quality (~1 GB of packages, models ~700 MB on first use)
+ai = [
+    "torch>=2.2",
+    "transformers>=4.45",
+    "numpy>=1.26",
+    "scipy>=1.11",
+]
 dev = [
     "pytest>=8",
     "httpx>=0.27",
     "ruff>=0.6",
+    # AI grouping logic is tested with a fake model, so CI needs these but not torch
+    "numpy>=1.26",
+    "scipy>=1.11",
 ]
 
 [project.scripts]
+pixora = "photo_cleanup.cli:main"
 photo-cleanup = "photo_cleanup.cli:main"
 
 [tool.hatch.build.targets.wheel]
