@@ -22,3 +22,25 @@ frontend/dist/
 
 # Local Claude Code settings (personal)
 .claude/settings.local.json
+
+# Web edition build output
+frontend/dist/
+
+# Secrets and local environment (never commit)
+.env
+.env.*
+*.pem
+*.key
+
+# Personal data that must never be published
+photo_cleanup_log.csv
+_to_delete/
+.pixora/
+*.jpg
+*.jpeg
+*.JPG
+*.heic
+*.HEIC
+*.png
+!docs/screenshot.jpg
+!frontend/public/*.png
