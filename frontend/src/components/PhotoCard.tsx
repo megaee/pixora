@@ -1,4 +1,4 @@
-import { api, mb } from '../api'
+import { api, isWeb, mb } from '../api'
 import { describe } from '../decisions'
 import type { Decision, PhotoInfo } from '../types'
 
@@ -39,6 +39,12 @@ export function PhotoCard({ photo, decision, best, version, onChange, onOpen }: 
         </div>
         <div>
           {photo.width}×{photo.height} · sharpness {Math.round(photo.sharpness)}
+          {photo.ai_quality !== null && (
+            <span title="AI quality score (CLIP-IQA), 0-100" className="nowrap">
+              {' '}
+              · AI {Math.round(photo.ai_quality * 100)}
+            </span>
+          )}
         </div>
       </div>
       <div className="actions">
@@ -51,7 +57,7 @@ export function PhotoCard({ photo, decision, best, version, onChange, onOpen }: 
         <button title="Rotate right" onClick={() => onChange({ ...d, rotate: (d.rotate + 1) % 4 })}>
           ⟳
         </button>
-        <label className="check">
+        <label className="check" hidden={isWeb}>
           <input
             type="checkbox"
             checked={d.shrink}
